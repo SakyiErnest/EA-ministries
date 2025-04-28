@@ -1,7 +1,60 @@
-.title{
+/* Section Title Styles */
+.section-title {
   text-align: center;
-  color: #333;
-  font-weight: 600;
+  padding: 2rem 0 3rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.section-title h2 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #212EA0;
+  margin-bottom: 1rem;
+  position: relative;
   text-transform: uppercase;
-  margin: 70px 0 30px;
+}
+
+.title-underline {
+  height: 3px;
+  width: 80px;
+  background-color: #FFD700;
+  margin: 0 auto 1.5rem;
+}
+
+.title-description {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+  .section-title {
+    padding: 1.5rem 0 2.5rem;
+  }
+
+  .section-title h2 {
+    font-size: 2rem;
+  }
+
+  .title-description {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-title h2 {
+    font-size: 1.8rem;
+  }
+
+  .title-underline {
+    width: 60px;
+  }
+
+  .title-description {
+    font-size: 0.95rem;
+  }
 }

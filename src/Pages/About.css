@@ -1,0 +1,51 @@
+/* About Page Styles */
+.about-page {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+  padding: 2rem 0;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about-section {
+  width: 100%;
+  padding: 1rem;
+}
+
+.section-title {
+  text-align: center;
+  color: #212EA0;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: #FFD700;
+}
+
+.board-container {
+  width: 100%;
+  padding: 1rem;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+  .about-page {
+    gap: 2rem;
+    padding: 1rem;
+  }
+  
+  .section-title {
+    font-size: 1.5rem;
+  }
+}

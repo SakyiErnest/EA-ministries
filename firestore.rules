@@ -1,0 +1,35 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Function to check if the user is an admin
+    function isAdmin() {
+      return request.auth != null &&
+             exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    // Sermons collection rules
+    match /sermons/{sermonId} {
+      // Anyone can read sermons
+      allow read: if true;
+
+      // Only admins can create, update, or delete sermons
+      allow create, update, delete: if isAdmin();
+    }
+
+    // Admins collection rules
+    match /admins/{userId} {
+      // Only admins can read the admins collection
+      allow read: if isAdmin();
+
+      // Only the specific admin can read their own document
+      allow read: if request.auth != null && request.auth.uid == userId;
+
+      // Allow authenticated users to create their own admin document
+      // This is needed for the admin verification process
+      allow create, update: if request.auth != null && request.auth.uid == userId;
+
+      // Only admins can delete admin documents
+      allow delete: if isAdmin();
+    }
+  }
+}

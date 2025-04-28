@@ -1,52 +1,220 @@
-.App {
-  font-family: Arial, sans-serif;
+/* Announcements Section Styles */
+.announcements-section {
+  font-family: 'Outfit', sans-serif;
+  padding: 3rem 1rem;
+  width: 100%;
+}
+
+.section-title {
   text-align: center;
-  padding: 20px;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #212EA0;
+  margin-bottom: 3rem;
+  position: relative;
 }
 
-h1 {
-  font-size: 2em;
-  margin-bottom: 20px;
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: #FFD700;
 }
 
-.events {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
+/* Events Grid Layout */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
+/* Event Card Styling */
 .event-card {
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  width: 200px;
-  margin: 10px;
-  padding: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-.event-date {
-  font-size: 1.2em;
-  color: #333;
-  margin-bottom: 10px;
+.event-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
-.event-details h2 {
-  font-size: 1.1em;
-  color: #333;
+/* Event Image Section */
+.event-image {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
 }
 
-.event-details p {
-  font-size: 0.9em;
-  color: #666;
+.event-date-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #212EA0;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-top-left-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9rem;
 }
 
-.event-times p {
-  margin: 5px 0;
+.event-icon {
+  color: #FFD700;
 }
 
-.event-location {
-  font-size: 0.9em;
-  color: #666;
-  margin-top: 10px;
+/* Event Content Section */
+.event-content {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.event-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #212EA0;
+  margin: 0 0 1rem 0;
+  line-height: 1.4;
+}
+
+.event-description {
+  color: #555;
+  margin: 0 0 1.5rem 0;
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+/* Event Details */
+.event-details {
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.event-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+}
+
+.detail-icon {
+  color: #FFD700;
+  margin-top: 3px;
+}
+
+.detail-text {
+  color: #555;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.event-time {
+  display: block;
+}
+
+/* Button Styling */
+.event-button {
+  background-color: transparent;
+  color: #212EA0;
+  border: 2px solid #212EA0;
+  padding: 0.75rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  align-self: flex-start;
+  margin-top: auto;
+}
+
+.event-button:hover {
+  background-color: #212EA0;
+  color: white;
+}
+
+.button-icon {
+  transition: transform 0.3s ease;
+}
+
+.event-button:hover .button-icon {
+  transform: translateX(5px);
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 992px) {
+  .events-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .events-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+
+  .event-title {
+    font-size: 1.2rem;
+  }
+
+  .event-content {
+    padding: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .event-image {
+    height: 180px;
+  }
+
+  .event-content {
+    padding: 1rem;
+  }
+
+  .event-title {
+    font-size: 1.1rem;
+  }
+
+  .event-description {
+    font-size: 0.9rem;
+  }
 }

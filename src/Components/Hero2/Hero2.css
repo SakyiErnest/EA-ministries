@@ -1,23 +1,199 @@
-.slide {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: #f4f4f4;
-  height: 300px;
-  text-align: center;
-}
-.carousel-img {
-  width: 100%;
-  height: 250px;
-  max-height: 300px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-h2 {
-  color: #333;
+/* Hero Carousel Styles */
+.hero-carousel-wrapper {
+  position: relative;
+  z-index: 1;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
-p {
+/* Slide Styling */
+.carousel-slide {
+  position: relative;
+  height: 400px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.slide-content {
+  max-width: 800px;
+  width: 100%;
+  text-align: center;
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+/* Icon Styling */
+.slide-icon {
+  font-size: 3rem;
+  color: #212EA0;
+  margin-bottom: 1rem;
+}
+
+.event-icon {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+/* Title Styling */
+.slide-title {
+  color: #212EA0;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+/* Details Section */
+.slide-details {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.slide-detail {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   color: #555;
+}
+
+.detail-icon {
+  color: #FFD700;
+}
+
+/* Description */
+.slide-description {
+  color: #555;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+
+/* Button Styling */
+.slide-button {
+  background-color: #212EA0;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.slide-button:hover {
+  background-color: #1a237e;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Slick Carousel Customization */
+.slick-dots {
+  bottom: 20px;
+}
+
+.slick-dots li button:before {
+  color: #212EA0;
+  opacity: 0.5;
+  font-size: 12px;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #212EA0;
+  opacity: 1;
+}
+
+.slick-prev, .slick-next {
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+}
+
+.slick-prev {
+  left: 15px;
+}
+
+.slick-next {
+  right: 15px;
+}
+
+.slick-prev:before, .slick-next:before {
+  font-size: 40px;
+  opacity: 0.8;
+  color: #212EA0;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 992px) {
+  .carousel-slide {
+    height: 350px;
+    padding: 1.5rem;
+  }
+
+  .slide-content {
+    padding: 1.5rem;
+  }
+
+  .slide-title {
+    font-size: 1.8rem;
+  }
+
+  .slide-icon {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .carousel-slide {
+    height: 400px;
+    padding: 1rem;
+  }
+
+  .slide-content {
+    padding: 1.2rem;
+  }
+
+  .slide-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .slide-details {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .slide-icon {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .carousel-slide {
+    height: 450px;
+  }
+
+  .slide-content {
+    padding: 1rem;
+  }
+
+  .slide-title {
+    font-size: 1.3rem;
+  }
+
+  .slide-description {
+    font-size: 0.9rem;
+  }
+
+  .slide-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
 }

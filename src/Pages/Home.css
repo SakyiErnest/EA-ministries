@@ -1,0 +1,85 @@
+/* Home Page Styles */
+.home-page {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Section Containers */
+.section-container {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Programs Section */
+.programs-section {
+  padding: 2rem 0 4rem;
+  background-color: #ffffff;
+}
+
+/* Testimonials Section */
+.testimonials-section {
+  padding: 4rem 0;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.testimonials-section::before {
+  content: '';
+  position: absolute;
+  top: -100px;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: #ffffff;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+}
+
+.testimonials-section::after {
+  content: '';
+  position: absolute;
+  bottom: -100px;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: #ffffff;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  box-shadow: 0 -10px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* Gallery Section */
+.gallery-section {
+  padding: 4rem 0 6rem;
+  background-color: #ffffff;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 992px) {
+  .section-container {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-container {
+    padding: 0 1rem;
+  }
+  
+  .programs-section {
+    padding: 1.5rem 0 3rem;
+  }
+  
+  .testimonials-section,
+  .gallery-section {
+    padding: 3rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .section-container {
+    padding: 0 0.8rem;
+  }
+}

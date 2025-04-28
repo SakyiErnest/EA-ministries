@@ -1,0 +1,104 @@
+/* Sermons Page Styles */
+.sermons-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-top: 80px;
+}
+
+.sermons-header {
+  background: linear-gradient(135deg, #212EA0 0%, #4a57c9 100%);
+  padding: 4rem 2rem;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.sermons-header-content {
+  text-align: center;
+  max-width: 800px;
+}
+
+.sermons-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.sermons-subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.sermons-auth-nav {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+}
+
+.sermons-content {
+  padding: 3rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 992px) {
+  .sermons-header {
+    padding: 3rem 1.5rem;
+  }
+
+  .sermons-title {
+    font-size: 2rem;
+  }
+
+  .sermons-content {
+    padding: 2rem 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .sermons-header {
+    padding: 2.5rem 1rem 3.5rem;
+  }
+
+  .sermons-title {
+    font-size: 1.8rem;
+  }
+
+  .sermons-subtitle {
+    font-size: 1rem;
+  }
+
+  .sermons-content {
+    padding: 1.5rem 1rem;
+  }
+
+  .sermons-auth-nav {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin-top: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .sermons-header {
+    padding: 2rem 0.8rem 3rem;
+  }
+
+  .sermons-title {
+    font-size: 1.5rem;
+  }
+
+  .sermons-content {
+    padding: 1.2rem 0.8rem;
+  }
+
+  .sermons-auth-nav {
+    margin-top: 1.2rem;
+  }
+}

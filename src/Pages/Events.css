@@ -1,0 +1,94 @@
+/* Events Page Styles */
+.events-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Hero Section */
+.events-hero-section {
+  background: linear-gradient(135deg, #212EA0 0%, #4a57c9 100%);
+  padding: 6rem 2rem 3rem;
+  color: white;
+}
+
+.events-hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.events-page-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.events-carousel-container {
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+  margin-bottom: -3rem;
+  position: relative;
+  z-index: 2;
+}
+
+/* Content Section */
+.events-content-section {
+  background-color: #f8f9fa;
+  padding: 5rem 2rem 3rem;
+  flex-grow: 1;
+}
+
+.events-content-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 992px) {
+  .events-page-title {
+    font-size: 2rem;
+  }
+  
+  .events-hero-section {
+    padding: 5rem 1.5rem 3rem;
+  }
+  
+  .events-content-section {
+    padding: 4rem 1.5rem 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .events-page-title {
+    font-size: 1.8rem;
+  }
+  
+  .events-hero-section {
+    padding: 4rem 1rem 2rem;
+  }
+  
+  .events-content-section {
+    padding: 3rem 1rem 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .events-page-title {
+    font-size: 1.5rem;
+  }
+  
+  .events-hero-section {
+    padding: 4rem 0.5rem 2rem;
+  }
+  
+  .events-content-section {
+    padding: 3rem 0.5rem 1.5rem;
+  }
+}
