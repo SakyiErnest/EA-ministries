@@ -1,0 +1,21 @@
+.footer {
+  background-color: #002147;
+  color: white;
+  padding: 20px 0;
+}
+
+.footer-copyright {
+  text-align: center;
+  margin-top: 20px;
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}
+
+.footer-copyright a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-copyright a:hover {
+  text-decoration: underline;
+}

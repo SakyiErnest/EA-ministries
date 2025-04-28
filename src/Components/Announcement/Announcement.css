@@ -1,0 +1,52 @@
+.App {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.events {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.event-card {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 200px;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.event-date {
+  font-size: 1.2em;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.event-details h2 {
+  font-size: 1.1em;
+  color: #333;
+}
+
+.event-details p {
+  font-size: 0.9em;
+  color: #666;
+}
+
+.event-times p {
+  margin: 5px 0;
+}
+
+.event-location {
+  font-size: 0.9em;
+  color: #666;
+  margin-top: 10px;
+}

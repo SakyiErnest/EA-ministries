@@ -1,0 +1,21 @@
+.church h1{
+  text-align: center;
+  color: #333;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin: 70px 0 30px;
+}
+.church{
+  margin: 80px auto;
+  width: 90%;
+}
+.gallery{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+.gallery img{
+  width: 23%;
+  border-radius: 10px;
+}
