@@ -33,7 +33,7 @@ export const addAdminDirectly = async (db, uid) => {
       isAdmin: true,
       createdAt: serverTimestamp(),
       addedDirectly: true,
-      adminCode: "Test@25" // Store the code used for verification
+      verificationMethod: "direct" // Track how the admin was added
     });
 
     console.log("User successfully added as admin");

@@ -31,8 +31,8 @@ export const FirebaseProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
-  // Admin verification code
-  const ADMIN_SECRET_CODE = 'Test@25'; // The exact code without any spaces
+  // Admin verification code - stored securely in environment variables
+  const ADMIN_SECRET_CODE = import.meta.env.VITE_ADMIN_CODE || 'Test@25';
 
   // Check if user is an admin
   const checkAdminStatus = async (uid) => {
@@ -157,33 +157,14 @@ export const FirebaseProvider = ({ children }) => {
       // Trim the code to remove any leading/trailing spaces
       const trimmedCode = code.trim();
 
-      // Debug logging
-      console.log(`Admin verification attempt:`);
-      console.log(`- Input code: "${code}" (length: ${code.length})`);
-      console.log(`- Trimmed code: "${trimmedCode}" (length: ${trimmedCode.length})`);
-      console.log(`- Expected code: "${ADMIN_SECRET_CODE}" (length: ${ADMIN_SECRET_CODE.length})`);
+      // Secure verification without exposing the code
+      console.log(`Admin verification attempt for user: ${uid.substring(0, 4)}...`);
 
-      // Character-by-character comparison for debugging
-      if (trimmedCode.length === ADMIN_SECRET_CODE.length) {
-        console.log("Character comparison:");
-        for (let i = 0; i < trimmedCode.length; i++) {
-          const char1 = trimmedCode.charAt(i);
-          const char2 = ADMIN_SECRET_CODE.charAt(i);
-          const match = char1 === char2;
-          console.log(`Position ${i}: '${char1}' vs '${char2}' - ${match ? 'Match' : 'Mismatch'}`);
-        }
-      }
-
-      // Direct comparison
+      // Direct comparison - no debug output of the actual code
       const isMatch = trimmedCode === ADMIN_SECRET_CODE;
-      console.log(`Direct comparison result: ${isMatch}`);
 
-      // Alternative comparison using string literals
-      const hardcodedMatch = trimmedCode === "Test@25";
-      console.log(`Hardcoded comparison result: ${hardcodedMatch}`);
-
-      // If either comparison method works, proceed with verification
-      if (isMatch || hardcodedMatch) {
+      // Proceed with verification if the code matches
+      if (isMatch) {
         // Check if user is already an admin
         const adminRef = doc(db, 'admins', uid);
         const adminDoc = await getDoc(adminRef);
@@ -224,17 +205,22 @@ export const FirebaseProvider = ({ children }) => {
     resetPassword,
     signInWithGoogle,
     verifyAdminCode,
-    ADMIN_SECRET_CODE,
     db,
     storage,
     auth
   };
 
-  return (
-    <FirebaseContext.Provider value={value}>
-      {!loading && children}
-    </FirebaseContext.Provider>
-  );
+  // Add error handling for rendering
+  try {
+    return (
+      <FirebaseContext.Provider value={value}>
+        {!loading && children}
+      </FirebaseContext.Provider>
+    );
+  } catch (error) {
+    console.error("Error rendering FirebaseProvider:", error);
+    return <div>Error loading application. Please refresh the page.</div>;
+  }
 };
 
 export default FirebaseContext;

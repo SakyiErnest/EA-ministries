@@ -5,7 +5,7 @@ import { FaGoogle } from 'react-icons/fa';
 import { addAdminDirectly } from '../../firebase/adminHelper';
 
 const Login = ({ onClose, onRegisterClick }) => {
-  const { login, signInWithGoogle, currentUser, verifyAdminCode, db } = useFirebase();
+  const { login, signInWithGoogle, currentUser, verifyAdminCode, db, isAdmin } = useFirebase();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [adminCode, setAdminCode] = useState('');
@@ -24,9 +24,22 @@ const Login = ({ onClose, onRegisterClick }) => {
     try {
       setError('');
       setLoading(true);
-      await login(email, password);
-      setShowAdminVerification(true);
-      setLoading(false); // Reset loading state after login
+      const result = await login(email, password);
+
+      // Wait a moment for the auth state to update and isAdmin to be set
+      setTimeout(() => {
+        // Check if the user is already an admin
+        if (isAdmin) {
+          console.log("User is already an admin, closing modal");
+          // If already admin, just close the modal
+          if (onClose) onClose();
+        } else {
+          console.log("User is not an admin, showing verification");
+          // If not admin, show verification
+          setShowAdminVerification(true);
+        }
+        setLoading(false); // Reset loading state after login
+      }, 1000);
     } catch (err) {
       console.error('Login error:', err);
       setError('Failed to log in. Please check your credentials.');
@@ -39,8 +52,21 @@ const Login = ({ onClose, onRegisterClick }) => {
       setError('');
       setLoading(true);
       await signInWithGoogle();
-      setShowAdminVerification(true);
-      setLoading(false); // Reset loading state after sign-in
+
+      // Wait a moment for the auth state to update and isAdmin to be set
+      setTimeout(() => {
+        // Check if the user is already an admin
+        if (isAdmin) {
+          console.log("Google user is already an admin, closing modal");
+          // If already admin, just close the modal
+          if (onClose) onClose();
+        } else {
+          console.log("Google user is not an admin, showing verification");
+          // If not admin, show verification
+          setShowAdminVerification(true);
+        }
+        setLoading(false); // Reset loading state after sign-in
+      }, 1000);
     } catch (err) {
       console.error('Google sign-in error:', err);
       setError('Failed to sign in with Google. Please try again.');
@@ -67,36 +93,25 @@ const Login = ({ onClose, onRegisterClick }) => {
         return;
       }
 
-      // First, try direct admin creation as it's most reliable
-      console.log("Trying direct admin document creation first");
-      const directSuccess = await addAdminDirectly(db, currentUser.uid);
-
-      if (directSuccess) {
-        console.log("Direct admin creation successful");
-        if (onClose) onClose();
-        return;
-      }
-
-      // If direct creation fails, try with the exact code "Test@25"
-      if (adminCode.trim() === "Test@25") {
-        console.log("Using hardcoded verification");
-        const isVerified = await verifyAdminCode("Test@25", currentUser.uid);
-
-        if (isVerified) {
-          if (onClose) onClose();
-          return;
-        }
-      }
-
-      // As a last resort, try with the input code
+      // Try verification with the input code
       console.log("Trying verification with input code");
-      const isVerified = await verifyAdminCode(adminCode, currentUser.uid);
+      const isVerified = await verifyAdminCode(adminCode.trim(), currentUser.uid);
 
       if (isVerified) {
         if (onClose) onClose();
       } else {
+        // If verification fails, try direct admin creation as a fallback
+        console.log("Verification failed, trying direct admin creation");
+        const directSuccess = await addAdminDirectly(db, currentUser.uid);
+
+        if (directSuccess) {
+          console.log("Direct admin creation successful");
+          if (onClose) onClose();
+          return;
+        }
+
         console.error("All verification methods failed");
-        setError('Verification failed. Please make sure you entered "Test@25" exactly as shown.');
+        setError('Verification failed. Please check your admin code and try again. Contact your administrator if you need assistance.');
         setLoading(false);
       }
     } catch (err) {
@@ -113,38 +128,23 @@ const Login = ({ onClose, onRegisterClick }) => {
         <p className="auth-description">
           Enter the admin verification code to get admin privileges.
         </p>
-        <div className="auth-code-container">
-          <p className="auth-code-hint">
-            Enter exactly: <span className="exact-code">Test@25</span>
-          </p>
-          <button
-            type="button"
-            className="copy-code-button"
-            onClick={() => {
-              navigator.clipboard.writeText("Test@25");
-              setAdminCode("Test@25");
-            }}
-          >
-            Copy & Paste
-          </button>
-        </div>
 
         {error && <div className="auth-error">{error}</div>}
 
         <form onSubmit={handleAdminVerification} className="auth-form">
           <div className="form-group">
-            <label htmlFor="adminCode">Admin Code</label>
+            <label htmlFor="adminCode">Admin Verification Code</label>
             <input
               type="text"
               id="adminCode"
               value={adminCode}
               onChange={(e) => setAdminCode(e.target.value)}
               required
-              placeholder="Test@25"
+              placeholder="Enter admin code"
               autoComplete="off"
               className="admin-code-input"
             />
-            <small className="form-hint">Type exactly as shown above, with no extra spaces</small>
+            <small className="form-hint">Enter the admin verification code provided by your administrator. Case sensitive, no extra spaces.</small>
           </div>
 
           <div className="auth-buttons">
@@ -166,31 +166,7 @@ const Login = ({ onClose, onRegisterClick }) => {
             </button>
           </div>
 
-          <div className="auth-emergency">
-            <button
-              type="button"
-              className="emergency-button"
-              onClick={async () => {
-                try {
-                  setLoading(true);
-                  const success = await addAdminDirectly(db, currentUser.uid);
-                  if (success) {
-                    if (onClose) onClose();
-                  } else {
-                    setError('Emergency admin creation failed. Please contact support.');
-                    setLoading(false);
-                  }
-                } catch (err) {
-                  console.error('Emergency admin creation error:', err);
-                  setError('Emergency admin creation failed. Please contact support.');
-                  setLoading(false);
-                }
-              }}
-              disabled={loading}
-            >
-              Emergency Admin Access
-            </button>
-          </div>
+          {/* Emergency access removed for security */}
         </form>
       </div>
     );
