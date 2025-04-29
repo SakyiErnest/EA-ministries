@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Partnership.css";
+import { FaHandshake, FaHeart, FaPray, FaUsers, FaGraduationCap } from "react-icons/fa";
 
 const MinistryPartnership = () => {
   const [formData, setFormData] = useState({
@@ -13,11 +14,11 @@ const MinistryPartnership = () => {
   });
 
   const partnershipTypes = [
-    "Financial Support",
-    "Volunteering",
-    "Prayer Partner",
-    "Community Outreach",
-    "Scholarship Support",
+    { value: "Financial Support", icon: <FaHandshake /> },
+    { value: "Volunteering", icon: <FaUsers /> },
+    { value: "Prayer Partner", icon: <FaPray /> },
+    { value: "Community Outreach", icon: <FaHeart /> },
+    { value: "Scholarship Support", icon: <FaGraduationCap /> },
   ];
 
   const paymentMethods = ["PayPal", "Credit Card", "Bank Transfer"];
@@ -33,46 +34,87 @@ const MinistryPartnership = () => {
   };
 
   return (
-    <div className="form-container">
-      <h2>Join Our Ministry Partnership</h2>
-      <p>Help support our mission through your chosen partnership type.</p>
+    <div className="partnership-page">
+      <div className="partnership-hero">
+        <div className="partnership-hero-content">
+          <h1>Join Our Ministry Partnership</h1>
+          <p>Together we can make a greater impact in spreading the Gospel and transforming lives</p>
+        </div>
+      </div>
 
-      <form onSubmit={handleSubmit} className="ministry-form">
-        <label>Name:</label>
-        <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+      <div className="partnership-content">
+        <div className="partnership-types-container">
+          <h2>Ways to Partner With Us</h2>
+          <div className="partnership-types">
+            {partnershipTypes.map((type, index) => (
+              <div
+                key={index}
+                className={`partnership-type-card ${formData.partnershipType === type.value ? 'active' : ''}`}
+                onClick={() => setFormData({...formData, partnershipType: type.value})}
+              >
+                <div className="partnership-type-icon">{type.icon}</div>
+                <h3>{type.value}</h3>
+              </div>
+            ))}
+          </div>
+        </div>
 
-        <label>Email:</label>
-        <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+        <div className="form-container">
+          <h2>Partnership Form</h2>
+          <p>Please fill out the form below to become a partner</p>
 
-        <label>Church Name:</label>
-        <input type="text" name="churchName" value={formData.churchName} onChange={handleChange} required />
+          <form onSubmit={handleSubmit} className="ministry-form">
+            <div className="form-group">
+              <label>Name:</label>
+              <input type="text" name="name" value={formData.name} onChange={handleChange} required />
+            </div>
 
-        <label>Select Partnership Type:</label>
-        <select name="partnershipType" value={formData.partnershipType} onChange={handleChange} required>
-          {partnershipTypes.map((type, index) => (
-            <option key={index} value={type}>{type}</option>
-          ))}
-        </select>
+            <div className="form-group">
+              <label>Email:</label>
+              <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+            </div>
 
-        {formData.partnershipType === "Financial Support" && (
-          <>
-            <label>Donation Amount:</label>
-            <input type="number" name="amount" value={formData.amount} onChange={handleChange} required />
+            <div className="form-group">
+              <label>Church Name:</label>
+              <input type="text" name="churchName" value={formData.churchName} onChange={handleChange} required />
+            </div>
 
-            <label>Payment Method:</label>
-            <select name="paymentMethod" value={formData.paymentMethod} onChange={handleChange} required>
-              {paymentMethods.map((method, index) => (
-                <option key={index} value={method}>{method}</option>
-              ))}
-            </select>
-          </>
-        )}
+            <div className="form-group">
+              <label>Selected Partnership Type:</label>
+              <select name="partnershipType" value={formData.partnershipType} onChange={handleChange} required>
+                {partnershipTypes.map((type, index) => (
+                  <option key={index} value={type.value}>{type.value}</option>
+                ))}
+              </select>
+            </div>
 
-        <label>Message (Optional):</label>
-        <textarea name="message" value={formData.message} onChange={handleChange} />
+            {formData.partnershipType === "Financial Support" && (
+              <>
+                <div className="form-group">
+                  <label>Donation Amount:</label>
+                  <input type="number" name="amount" value={formData.amount} onChange={handleChange} required />
+                </div>
 
-        <button type="submit">Submit Partnership Request</button>
-      </form>
+                <div className="form-group">
+                  <label>Payment Method:</label>
+                  <select name="paymentMethod" value={formData.paymentMethod} onChange={handleChange} required>
+                    {paymentMethods.map((method, index) => (
+                      <option key={index} value={method}>{method}</option>
+                    ))}
+                  </select>
+                </div>
+              </>
+            )}
+
+            <div className="form-group">
+              <label>Message (Optional):</label>
+              <textarea name="message" value={formData.message} onChange={handleChange} />
+            </div>
+
+            <button type="submit" className="submit-btn">Submit Partnership Request</button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };
