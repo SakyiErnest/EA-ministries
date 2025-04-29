@@ -1,0 +1,24 @@
+.carousel-container {
+  width: 80%;
+  margin: auto;
+  text-align: center;
+}
+
+.book-slide {
+  padding: 20px;
+}
+
+.book-image {
+  width: 100px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.slick-prev,
+.slick-next {
+  color: #333;
+}
+
+.slick-dots li button:before {
+  color: #666;
+}
