@@ -7,7 +7,7 @@ import handshake from '../../assets/handshake.png'
 import scholarship from '../../assets/scholarship.png'
 import book from '../../assets/book.png'
 import { FaHandshake, FaGraduationCap, FaBook, FaArrowRight } from 'react-icons/fa'
-
+import { Link } from 'react-router-dom';
 const Programs = () => {
   const programData = [
     {
@@ -17,7 +17,7 @@ const Programs = () => {
       iconImg: handshake,
       title: "Partnership",
       description: "Join our partnership program and help us extend our reach to communities in need through collaborative efforts.",
-      link: "#"
+      link: "/partnership"
     },
     {
       id: 2,
@@ -26,7 +26,7 @@ const Programs = () => {
       iconImg: scholarship,
       title: "Scholarship",
       description: "Our scholarship program provides educational opportunities to deserving students who need financial assistance.",
-      link: "#"
+      link: "/scholarship"
     },
     {
       id: 3,
@@ -35,7 +35,7 @@ const Programs = () => {
       iconImg: book,
       title: "Books",
       description: "Explore our collection of spiritual books and resources designed to help you grow in your faith journey.",
-      link: "#"
+      link: "/books"
     }
   ];
 
@@ -57,9 +57,10 @@ const Programs = () => {
             </div>
             <p className="program-description">{program.description}</p>
 
-            <a href={program.link} className="program-link">
-              Learn More <FaArrowRight className="arrow-icon" />
-            </a>
+            <Link to={program.link} className="program-link">
+  Learn More <FaArrowRight className="arrow-icon" />
+</Link>
+
           </div>
         </div>
       ))}
