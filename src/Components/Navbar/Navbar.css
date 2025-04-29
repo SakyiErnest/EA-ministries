@@ -14,6 +14,10 @@ nav{
 .logo{
   width: 180px;
 }
+.nav-links {
+  display: flex;
+  align-items: center;
+}
 nav ul li{
   display: inline-block;
   list-style: none;
@@ -23,4 +27,69 @@ nav ul li{
 .dark-nav{
   background: #212EA0;
   transition: 0.5s;
+}
+
+/* Mobile menu icon - hidden by default on desktop */
+.mobile-menu-icon {
+  display: none;
+  cursor: pointer;
+}
+
+.mobile-menu-icon img {
+  width: 24px;
+  height: 24px;
+  filter: invert(1);
+}
+
+/* Media queries for responsive design */
+@media screen and (max-width: 1024px) {
+  .logo {
+    width: 150px;
+  }
+
+  nav ul li {
+    margin: 5px 10px;
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .mobile-menu-icon {
+    display: block;
+  }
+
+  .nav-links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 70%;
+    height: 100vh;
+    background: #212EA0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: 0.5s ease-in-out;
+    z-index: 20;
+  }
+
+  .mobile-menu-active {
+    right: 0;
+  }
+
+  nav ul li {
+    display: block;
+    margin: 20px 0;
+    font-size: 18px;
+    color: white;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .logo {
+    width: 120px;
+  }
+
+  .nav-links {
+    width: 80%;
+  }
 }

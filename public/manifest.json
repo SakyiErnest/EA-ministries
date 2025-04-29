@@ -1,0 +1,26 @@
+{
+  "name": "Emmanuel Asare Ministries",
+  "short_name": "EAM",
+  "description": "Transforming Lives Through Faith, Hope, and Love",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#212EA0",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/logo192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/logo512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}

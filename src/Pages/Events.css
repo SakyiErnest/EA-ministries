@@ -3,6 +3,7 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  margin-top: 60px; /* Add space for fixed navbar */
 }
 
 /* Hero Section */
@@ -18,13 +19,24 @@
   width: 100%;
 }
 
-.events-page-title {
-  text-align: center;
-  font-size: 2.5rem;
+.events-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 2rem;
+}
+
+.events-page-title {
+  font-size: 2.5rem;
   font-weight: 700;
   color: white;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin: 0;
+}
+
+.events-auth-nav {
+  display: flex;
+  align-items: center;
 }
 
 .events-carousel-container {
@@ -50,45 +62,117 @@
   width: 100%;
 }
 
+/* Admin Controls */
+.admin-controls {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 2rem;
+}
+
+.add-event-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #212EA0;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 30px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 1rem;
+}
+
+.add-event-button:hover {
+  background-color: #1a237e;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(33, 46, 160, 0.3);
+}
+
 /* Media Queries for Responsive Design */
 @media (max-width: 992px) {
+  .events-page {
+    margin-top: 55px;
+  }
+
   .events-page-title {
     font-size: 2rem;
   }
-  
+
   .events-hero-section {
     padding: 5rem 1.5rem 3rem;
   }
-  
+
   .events-content-section {
     padding: 4rem 1.5rem 2rem;
+  }
+
+  .events-carousel-container {
+    margin-bottom: -2.5rem;
   }
 }
 
 @media (max-width: 768px) {
+  .events-page {
+    margin-top: 50px;
+  }
+
+  .events-header-top {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
   .events-page-title {
     font-size: 1.8rem;
+    text-align: center;
   }
-  
+
   .events-hero-section {
     padding: 4rem 1rem 2rem;
   }
-  
+
   .events-content-section {
     padding: 3rem 1rem 2rem;
+  }
+
+  .events-carousel-container {
+    margin-bottom: -2rem;
+    border-radius: 8px;
+  }
+
+  .admin-controls {
+    justify-content: center;
+    margin-bottom: 1.5rem;
   }
 }
 
 @media (max-width: 480px) {
+  .events-page {
+    margin-top: 45px;
+  }
+
   .events-page-title {
     font-size: 1.5rem;
   }
-  
+
   .events-hero-section {
     padding: 4rem 0.5rem 2rem;
   }
-  
+
   .events-content-section {
     padding: 3rem 0.5rem 1.5rem;
+  }
+
+  .events-carousel-container {
+    margin-bottom: -1.5rem;
+    border-radius: 6px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .add-event-button {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
   }
 }

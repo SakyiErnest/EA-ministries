@@ -57,9 +57,26 @@
 }
 
 /* Media Queries for Responsive Design */
-@media (max-width: 992px) {
+@media (max-width: 1024px) {
   .section-container {
     padding: 0 1.5rem;
+  }
+
+  .programs-section {
+    padding: 2rem 0 3.5rem;
+  }
+
+  .testimonials-section {
+    padding: 3.5rem 0;
+  }
+
+  .gallery-section {
+    padding: 3.5rem 0 5rem;
+  }
+
+  .testimonials-section::before,
+  .testimonials-section::after {
+    height: 80px;
   }
 }
 
@@ -67,19 +84,45 @@
   .section-container {
     padding: 0 1rem;
   }
-  
+
   .programs-section {
     padding: 1.5rem 0 3rem;
   }
-  
+
   .testimonials-section,
   .gallery-section {
     padding: 3rem 0;
+  }
+
+  .testimonials-section::before,
+  .testimonials-section::after {
+    height: 60px;
+    top: -60px;
+    bottom: -60px;
   }
 }
 
 @media (max-width: 480px) {
   .section-container {
     padding: 0 0.8rem;
+  }
+
+  .programs-section {
+    padding: 1rem 0 2.5rem;
+  }
+
+  .testimonials-section {
+    padding: 2.5rem 0;
+  }
+
+  .gallery-section {
+    padding: 2.5rem 0 4rem;
+  }
+
+  .testimonials-section::before,
+  .testimonials-section::after {
+    height: 40px;
+    top: -40px;
+    bottom: -40px;
   }
 }

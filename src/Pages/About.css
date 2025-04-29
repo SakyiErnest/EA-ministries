@@ -6,6 +6,7 @@
   padding: 2rem 0;
   max-width: 1200px;
   margin: 0 auto;
+  margin-top: 60px; /* Add space for fixed navbar */
 }
 
 .about-section {
@@ -20,6 +21,7 @@
   margin-bottom: 2rem;
   position: relative;
   padding-bottom: 0.5rem;
+  font-size: 2rem;
 }
 
 .section-title::after {
@@ -39,13 +41,50 @@
 }
 
 /* Media Queries for Responsive Design */
+@media (max-width: 1024px) {
+  .about-page {
+    padding: 1.5rem;
+    gap: 3rem;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+}
+
 @media (max-width: 768px) {
   .about-page {
     gap: 2rem;
     padding: 1rem;
+    margin-top: 50px;
   }
-  
+
   .section-title {
     font-size: 1.5rem;
+  }
+
+  .about-section {
+    padding: 0.5rem;
+  }
+
+  .board-container {
+    padding: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-page {
+    gap: 1.5rem;
+    padding: 0.5rem;
+  }
+
+  .section-title {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-title::after {
+    width: 60px;
+    height: 2px;
   }
 }
