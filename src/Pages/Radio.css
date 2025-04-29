@@ -1,35 +1,513 @@
-.radio-container {
-  width: 80%;
-  margin: auto;
+.radio-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-top: 80px;
+}
+
+.radio-hero {
+  background: linear-gradient(135deg, #212EA0 0%, #4a57c9 100%);
+  padding: 4rem 2rem;
+  color: white;
   text-align: center;
-  padding: 20px;
+  position: relative;
 }
 
-.radio-header {
-  background-color: #2a9d8f;
-  color: white;
-  padding: 30px;
-  border-radius: 8px;
+.radio-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background: linear-gradient(to bottom right, transparent 49%, white 50%);
 }
 
-.radio-player, .radio-schedule, .radio-social {
-  margin-top: 20px;
-  padding: 20px;
-  background-color: #f8f9fa;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.radio-hero-content {
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-.social-links a {
+.radio-hero h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.radio-hero p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.radio-content {
+  padding: 3rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.section-header h2 {
+  font-size: 2rem;
+  color: #212EA0;
+  margin-bottom: 0.5rem;
+}
+
+.title-underline {
+  height: 3px;
+  width: 80px;
+  background-color: #FFD700;
+  margin: 0 auto;
+}
+
+/* Radio Player Section */
+.radio-player-section {
+  background-color: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  margin-bottom: 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.radio-player-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(to right, #212EA0, #FFD700);
+}
+
+.now-playing {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.current-time {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.on-air-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pulse {
   display: inline-block;
-  margin: 5px;
-  padding: 10px;
-  background-color: #e76f51;
-  color: white;
-  border-radius: 5px;
-  text-decoration: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: #ff0000;
+  animation: pulse 1.5s infinite;
 }
 
-.social-links a:hover {
-  background-color: #d63d25;
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(255, 0, 0, 0);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+  }
+}
+
+.on-air-indicator span:last-child {
+  font-weight: 700;
+  color: #ff0000;
+  letter-spacing: 1px;
+}
+
+.current-show {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.current-show h3 {
+  font-size: 1.5rem;
+  color: #212EA0;
+  margin-bottom: 0.3rem;
+}
+
+.current-show p {
+  color: #666;
+  font-size: 1rem;
+}
+
+.player-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.player-controls {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.play-button {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: #FFD700;
+  color: #212121;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+}
+
+.play-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+}
+
+.play-button.playing {
+  background-color: #212EA0;
+  color: white;
+  box-shadow: 0 4px 15px rgba(33, 46, 160, 0.3);
+}
+
+.volume-control {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  color: #666;
+  font-size: 1.2rem;
+}
+
+.volume-slider {
+  -webkit-appearance: none;
+  width: 150px;
+  height: 5px;
+  border-radius: 5px;
+  background: #e0e0e0;
+  outline: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #212EA0;
+  cursor: pointer;
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #212EA0;
+  cursor: pointer;
+}
+
+.hidden-audio-player {
+  display: none;
+}
+
+.listen-options {
+  text-align: center;
+}
+
+.listen-options p {
+  color: #888;
+  margin-bottom: 1rem;
+}
+
+.platform-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.platform-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.2rem;
+  background-color: #f5f5f5;
+  color: #333;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.platform-link:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-3px);
+}
+
+/* Radio Schedule Section */
+.radio-schedule-section {
+  margin-bottom: 3rem;
+}
+
+.schedule-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.schedule-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.schedule-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.schedule-card.active {
+  border: 2px solid #FFD700;
+}
+
+.schedule-icon {
+  font-size: 2.5rem;
+  color: #212EA0;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.schedule-details {
+  margin-bottom: 1.5rem;
+}
+
+.schedule-details h3 {
+  font-size: 1.3rem;
+  color: #212121;
+  margin-bottom: 0.5rem;
+}
+
+.schedule-host {
+  color: #666;
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+.schedule-time, .schedule-days {
+  color: #333;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+
+.schedule-description {
+  color: #666;
+  line-height: 1.5;
+  font-size: 0.95rem;
+}
+
+.live-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: #ff0000;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  animation: pulse 1.5s infinite;
+}
+
+/* Radio Connect Section */
+.radio-connect-section {
+  margin-bottom: 2rem;
+}
+
+.connect-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.social-media, .contact-info {
+  background-color: white;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.social-media h3, .contact-info h3 {
+  font-size: 1.3rem;
+  color: #212EA0;
+  margin-bottom: 1.5rem;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  color: white;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  transform: translateY(-5px);
+}
+
+.facebook {
+  background-color: #3b5998;
+}
+
+.twitter {
+  background-color: #1da1f2;
+}
+
+.instagram {
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+}
+
+.youtube {
+  background-color: #ff0000;
+}
+
+.contact-info p {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+.contact-button {
+  margin-bottom: 1rem;
+}
+
+.contact-button a {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background-color: #f5f5f5;
+  color: #333;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.contact-button a:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-3px);
+}
+
+.phone-link {
+  color: #212EA0;
+}
+
+.email-link {
+  color: #212EA0;
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+  .now-playing {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .current-time, .on-air-indicator {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .radio-hero {
+    padding: 3rem 1.5rem;
+  }
+
+  .radio-hero h1 {
+    font-size: 2rem;
+  }
+
+  .radio-content {
+    padding: 2rem 1rem;
+  }
+
+  .section-header h2 {
+    font-size: 1.8rem;
+  }
+
+  .player-controls {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .schedule-container, .connect-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .radio-hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .radio-hero p {
+    font-size: 1rem;
+  }
+
+  .section-header h2 {
+    font-size: 1.6rem;
+  }
+
+  .platform-links {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .platform-link {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .social-links {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
 }
