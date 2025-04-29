@@ -1,0 +1,35 @@
+.scholarship-container {
+  width: 80%;
+  margin: auto;
+  text-align: center;
+  padding: 20px;
+}
+
+.scholarship-header {
+  background-color: #2a9d8f;
+  color: white;
+  padding: 30px;
+  border-radius: 8px;
+}
+
+.scholarship-details, .scholarship-apply {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.apply-btn {
+  background-color: #e76f51;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.apply-btn:hover {
+  background-color: #d63d25;
+}
