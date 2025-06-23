@@ -1,8 +1,8 @@
 import React from 'react'
 import './Board2.css'
 import photo1 from '../../assets/WhatsApp Image 2024-10-18 at 11.14.47_a80ec106.jpg'
-import photo2 from '../../assets/IMG-20240705-WA0001.jpg'
-
+import photo2 from '../../assets/DSC_0004-1.jpg'
+import photo3 from '../../assets/DSC_0042-1.jpg'
 const Board2 = () => {
   // Board of Trustees member data
   const trustees = [
@@ -22,7 +22,7 @@ const Board2 = () => {
     },
     {
       id: 3,
-      image: "",
+      image: photo3,
       name: "Madame Gifty Wandem",
       title: "Executive Secretary",
       role: "Member"

@@ -16,7 +16,6 @@ const MinistryPartnership = () => {
   const partnershipTypes = [
     { value: "Financial Support", icon: <FaHandshake /> },
     { value: "Volunteering", icon: <FaUsers /> },
-    { value: "Prayer Partner", icon: <FaPray /> },
     { value: "Community Outreach", icon: <FaHeart /> },
     { value: "Scholarship Support", icon: <FaGraduationCap /> },
   ];
