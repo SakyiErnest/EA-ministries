@@ -3,15 +3,46 @@ import { useFirebase } from '../../firebase/FirebaseContext';
 import './Auth.css';
 import { FaGoogle } from 'react-icons/fa';
 import { addAdminDirectly } from '../../firebase/adminHelper';
+import { doc, getDoc } from 'firebase/firestore';
 
 const Login = ({ onClose, onRegisterClick }) => {
-  const { login, signInWithGoogle, currentUser, verifyAdminCode, db, isAdmin } = useFirebase();
+  const { login, signInWithGoogle, currentUser, verifyAdminCode, db } = useFirebase();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [adminCode, setAdminCode] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [showAdminVerification, setShowAdminVerification] = useState(false);
+
+  const checkAdminRecord = async (uid) => {
+    try {
+      const adminRef = doc(db, 'admins', uid);
+      const adminDoc = await getDoc(adminRef);
+      return adminDoc.exists();
+    } catch (lookupError) {
+      console.error('Admin lookup error:', lookupError);
+      return false;
+    }
+  };
+
+  const handleAuthSuccess = async (user) => {
+    if (!user) {
+      setError('Unable to determine user information after login.');
+      setLoading(false);
+      return;
+    }
+
+    const hasAdminAccess = await checkAdminRecord(user.uid);
+
+    if (hasAdminAccess) {
+      setShowAdminVerification(false);
+      if (onClose) onClose();
+    } else {
+      setShowAdminVerification(true);
+    }
+
+    setLoading(false);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,21 +56,7 @@ const Login = ({ onClose, onRegisterClick }) => {
       setError('');
       setLoading(true);
       const result = await login(email, password);
-
-      // Wait a moment for the auth state to update and isAdmin to be set
-      setTimeout(() => {
-        // Check if the user is already an admin
-        if (isAdmin) {
-          console.log("User is already an admin, closing modal");
-          // If already admin, just close the modal
-          if (onClose) onClose();
-        } else {
-          console.log("User is not an admin, showing verification");
-          // If not admin, show verification
-          setShowAdminVerification(true);
-        }
-        setLoading(false); // Reset loading state after login
-      }, 1000);
+      await handleAuthSuccess(result?.user);
     } catch (err) {
       console.error('Login error:', err);
       setError('Failed to log in. Please check your credentials.');
@@ -51,22 +68,8 @@ const Login = ({ onClose, onRegisterClick }) => {
     try {
       setError('');
       setLoading(true);
-      await signInWithGoogle();
-
-      // Wait a moment for the auth state to update and isAdmin to be set
-      setTimeout(() => {
-        // Check if the user is already an admin
-        if (isAdmin) {
-          console.log("Google user is already an admin, closing modal");
-          // If already admin, just close the modal
-          if (onClose) onClose();
-        } else {
-          console.log("Google user is not an admin, showing verification");
-          // If not admin, show verification
-          setShowAdminVerification(true);
-        }
-        setLoading(false); // Reset loading state after sign-in
-      }, 1000);
+      const credential = await signInWithGoogle();
+      await handleAuthSuccess(credential?.user);
     } catch (err) {
       console.error('Google sign-in error:', err);
       setError('Failed to sign in with Google. Please try again.');
