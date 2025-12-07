@@ -8,11 +8,15 @@ const Navbar = () => {
   const [sticky, setSticky] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  useEffect(()=>{
-    window.addEventListener('scroll', ()=>{
-      window.scrollY > 50 ? setSticky(true) : setSticky(false)
-    })
-  },[])
+  useEffect(() => {
+    const handleScroll = () => {
+      setSticky(window.scrollY > 50);
+    };
+
+    handleScroll();
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);

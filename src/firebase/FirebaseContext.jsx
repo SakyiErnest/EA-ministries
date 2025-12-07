@@ -69,20 +69,8 @@ export const FirebaseProvider = ({ children }) => {
           console.log(`Setting admin status to: ${adminStatus}`);
           setIsAdmin(adminStatus);
 
-          // If not an admin, try to add them directly
-          // This helps in case the verification process failed but the user should be an admin
           if (!adminStatus) {
-            console.log("User not an admin, checking if they should be");
-            const adminRef = doc(db, 'admins', user.uid);
-            await setDoc(adminRef, {
-              isAdmin: true,
-              createdAt: serverTimestamp(),
-              autoAdded: true
-            }, { merge: true });
-
-            // Check admin status again
-            const newAdminStatus = await checkAdminStatus(user.uid);
-            setIsAdmin(newAdminStatus);
+            console.warn("User logged in without admin privileges; awaiting explicit verification.");
           }
         } catch (error) {
           console.error("Error in auth state change admin check:", error);
