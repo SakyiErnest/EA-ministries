@@ -1,45 +1,36 @@
-import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
+import { doc, getDoc, serverTimestamp, setDoc } from 'firebase/firestore'
 
 /**
- * Helper function to directly add a user to the admins collection
- * This is a fallback method when the normal verification process fails
+ * Ensures a given user exists in the `admins` collection.
+ *
+ * This is a fallback method when the normal verification process fails.
  *
  * @param {Object} db - Firestore database instance
- * @param {string} uid - User ID to add as admin
+ * @param {string} uid - User ID to ensure has an admin record
  * @returns {Promise<boolean>} - Success status
  */
-export const addAdminDirectly = async (db, uid) => {
+export const ensureAdminExists = async (db, uid) => {
   if (!db || !uid) {
-    console.error("Missing database or user ID");
-    return false;
+    console.error('Missing database or user ID')
+    return false
   }
 
   try {
-    console.log(`Checking if user ${uid} is already an admin`);
+    const adminRef = doc(db, 'admins', uid)
+    const adminDoc = await getDoc(adminRef)
 
-    // First check if the user is already an admin
-    const adminRef = doc(db, 'admins', uid);
-    const adminDoc = await getDoc(adminRef);
+    if (adminDoc.exists()) return true
 
-    if (adminDoc.exists()) {
-      console.log("User is already an admin, no need to add again");
-      return true;
-    }
-
-    console.log(`Directly adding user ${uid} as admin`);
-
-    // Add the user as an admin
     await setDoc(adminRef, {
       isAdmin: true,
       createdAt: serverTimestamp(),
       addedDirectly: true,
-      verificationMethod: "direct" // Track how the admin was added
-    });
+      verificationMethod: 'direct'
+    })
 
-    console.log("User successfully added as admin");
-    return true;
+    return true
   } catch (error) {
-    console.error("Failed to add admin directly:", error);
-    return false;
+    console.error('Failed to ensure admin record exists:', error)
+    return false
   }
-};
+}

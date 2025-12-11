@@ -2,7 +2,7 @@ import React from 'react'
 import Hero from '../Components/Hero/Hero'
 import Programs from '../Components/Programs/Programs'
 import Title from '../Components/Title/Title'
-import Testimonals from '../Components/Testimonals/Testimonals'
+import Testimonials from '../Components/Testimonials/Testimonials'
 import Gallery from '../Components/Gallery/Gallery'
 import './Home.css'
 
@@ -25,7 +25,7 @@ const Home = () => {
       {/* Testimonials Section */}
       <section className="testimonials-section">
         <div className="section-container">
-          <Testimonals />
+          <Testimonials />
         </div>
       </section>
 

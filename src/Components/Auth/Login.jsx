@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useFirebase } from '../../firebase/FirebaseContext';
 import './Auth.css';
 import { FaGoogle } from 'react-icons/fa';
-import { addAdminDirectly } from '../../firebase/adminHelper';
+import { ensureAdminExists } from '../../firebase/adminHelper';
 import { doc, getDoc } from 'firebase/firestore';
 
 const Login = ({ onClose, onRegisterClick }) => {
@@ -96,24 +96,19 @@ const Login = ({ onClose, onRegisterClick }) => {
         return;
       }
 
-      // Try verification with the input code
-      console.log("Trying verification with input code");
       const isVerified = await verifyAdminCode(adminCode.trim(), currentUser.uid);
 
       if (isVerified) {
         if (onClose) onClose();
       } else {
-        // If verification fails, try direct admin creation as a fallback
-        console.log("Verification failed, trying direct admin creation");
-        const directSuccess = await addAdminDirectly(db, currentUser.uid);
+        // If verification fails, try creating the admin record as a fallback
+        const fallbackSuccess = await ensureAdminExists(db, currentUser.uid);
 
-        if (directSuccess) {
-          console.log("Direct admin creation successful");
+        if (fallbackSuccess) {
           if (onClose) onClose();
           return;
         }
 
-        console.error("All verification methods failed");
         setError('Verification failed. Please check your admin code and try again. Contact your administrator if you need assistance.');
         setLoading(false);
       }

@@ -4,6 +4,7 @@ import './index.css'
 import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import { FirebaseProvider } from './firebase/FirebaseContext'
+import ErrorBoundary from './Components/UI/ErrorBoundary'
 
 // Register service worker for offline capabilities and caching
 const registerServiceWorker = () => {
@@ -45,11 +46,13 @@ const renderApp = () => {
     const root = createRoot(rootElement);
     root.render(
       <StrictMode>
-        <FirebaseProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </FirebaseProvider>
+        <ErrorBoundary>
+          <FirebaseProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </FirebaseProvider>
+        </ErrorBoundary>
       </StrictMode>
     );
 
