@@ -32,12 +32,12 @@ const Navbar = () => {
 
       <ul className={`nav-links ${mobileMenuOpen ? 'mobile-menu-active' : ''}`}>
         <Link to='/' onClick={() => setMobileMenuOpen(false)}><li>Home</li></Link>
-        <Link to='/About' onClick={() => setMobileMenuOpen(false)}><li>About</li></Link>
-        <Link to='/Events' onClick={() => setMobileMenuOpen(false)}><li>Events</li></Link>
-        <Link to='/Sermons' onClick={() => setMobileMenuOpen(false)}><li>Sermons</li></Link>
-        <Link to='/Contact' onClick={() => setMobileMenuOpen(false)}><li>Contact</li></Link>
-        <Link to='/Radio' onClick={() => setMobileMenuOpen(false)}><li>Radio</li></Link>
-        <Link to='/Give' onClick={() => setMobileMenuOpen(false)}><li><button className='btn'>Give</button></li></Link>
+        <Link to='/about' onClick={() => setMobileMenuOpen(false)}><li>About</li></Link>
+        <Link to='/events' onClick={() => setMobileMenuOpen(false)}><li>Events</li></Link>
+        <Link to='/sermons' onClick={() => setMobileMenuOpen(false)}><li>Sermons</li></Link>
+        <Link to='/contact' onClick={() => setMobileMenuOpen(false)}><li>Contact</li></Link>
+        <Link to='/radio' onClick={() => setMobileMenuOpen(false)}><li>Radio</li></Link>
+        <Link to='/give' onClick={() => setMobileMenuOpen(false)}><li><button className='btn'>Give</button></li></Link>
       </ul>
     </nav>
   )

@@ -1,86 +1,82 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Contacts.css'
-import { FaEnvelope, FaPhone, FaMapMarkerAlt, FaClock, FaFacebook, FaTwitter, FaInstagram, FaYoutube } from 'react-icons/fa'
+import {
+  FaEnvelope,
+  FaPhone,
+  FaMapMarkerAlt,
+  FaClock,
+  FaFacebook,
+  FaTwitter,
+  FaInstagram,
+  FaYoutube
+} from 'react-icons/fa'
+import { useForm } from '../../hooks/useForm'
+
+const initialContactFormValues = {
+  name: '',
+  phone: '',
+  email: '',
+  subject: '',
+  message: ''
+}
 
 const Contacts = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-
-  const [loading, setLoading] = useState(false);
+  const { values: formData, handleChange, resetForm } = useForm(initialContactFormValues)
+  const [loading, setLoading] = useState(false)
   const [result, setResult] = useState({
     message: '',
     type: '' // 'success' or 'error'
-  });
+  })
 
-  // Handle form input changes
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-  };
+  useEffect(() => {
+    if (result.type !== 'success') return
 
-  // Handle form submission
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    setLoading(true);
-    setResult({ message: '', type: '' });
+    const timeoutId = setTimeout(() => {
+      setResult({ message: '', type: '' })
+    }, 5000)
+
+    return () => clearTimeout(timeoutId)
+  }, [result.type])
+
+  const handleContactFormSubmit = async (event) => {
+    event.preventDefault()
+    setLoading(true)
+    setResult({ message: '', type: '' })
 
     try {
-      const formDataToSend = new FormData(event.target);
-      formDataToSend.append("access_key", "9b8ad355-12a1-4777-9221-e7c44b0df6f6");
+      const formDataToSend = new FormData(event.target)
+      formDataToSend.append('access_key', '9b8ad355-12a1-4777-9221-e7c44b0df6f6')
 
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
         body: formDataToSend
-      });
+      })
 
-      const data = await response.json();
+      const data = await response.json()
 
       if (data.success) {
         setResult({
-          message: "Thank you! Your message has been sent successfully.",
+          message: 'Thank you! Your message has been sent successfully.',
           type: 'success'
-        });
-
-        // Reset form
-        setFormData({
-          name: '',
-          phone: '',
-          email: '',
-          subject: '',
-          message: ''
-        });
+        })
+        resetForm()
       } else {
-        console.error("Error", data);
+        console.error('Error', data)
         setResult({
-          message: data.message || "Something went wrong. Please try again.",
+          message: data.message || 'Something went wrong. Please try again.',
           type: 'error'
-        });
+        })
       }
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.error('Error submitting form:', error)
       setResult({
-        message: "Network error. Please check your connection and try again.",
+        message: 'Network error. Please check your connection and try again.',
         type: 'error'
-      });
+      })
     } finally {
-      setLoading(false);
-
-      // Clear success message after 5 seconds
-      if (result.type === 'success') {
-        setTimeout(() => {
-          setResult({ message: '', type: '' });
-        }, 5000);
-      }
+      setLoading(false)
     }
-  };
+  }
 
   return (
     <div className='contact-wrapper'>
@@ -154,7 +150,7 @@ const Contacts = () => {
             </div>
           )}
 
-          <form onSubmit={onSubmit} className='contact-form'>
+          <form onSubmit={handleContactFormSubmit} className='contact-form'>
             <div className='form-row'>
               <div className='form-group'>
                 <label htmlFor='name'>Full Name</label>

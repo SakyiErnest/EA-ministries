@@ -18,8 +18,6 @@ function Footer() {
   const handleSubscribe = (e) => {
     e.preventDefault();
     if (email) {
-      // Here you would typically send this to your backend or newsletter service
-      console.log('Subscribing email:', email);
       setSubscribed(true);
       setEmail('');
 
@@ -62,11 +60,11 @@ function Footer() {
           <h3 className="footer-heading">Quick Links</h3>
           <div className="footer-links">
             <Link to="/">Home</Link>
-            <Link to="/About">About Us</Link>
-            <Link to="/Events">Events</Link>
-            <Link to="/Sermons">Sermons</Link>
-            <Link to="/Contact">Contact</Link>
-            <Link to="/Give">Give</Link>
+            <Link to="/about">About Us</Link>
+            <Link to="/events">Events</Link>
+            <Link to="/sermons">Sermons</Link>
+            <Link to="/contact">Contact</Link>
+            <Link to="/give">Give</Link>
           </div>
         </div>
 

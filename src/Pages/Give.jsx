@@ -1,55 +1,103 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Give.css";
-import { FaHandHoldingHeart, FaChurch, FaGraduationCap, FaUsers, FaGlobeAfrica } from "react-icons/fa";
+import {
+  FaHandHoldingHeart,
+  FaChurch,
+  FaGraduationCap,
+  FaUsers,
+  FaGlobeAfrica
+} from "react-icons/fa";
+import { useForm } from "../hooks/useForm";
+
+const initialGiveFormValues = {
+  name: "",
+  email: "",
+  amount: "50",
+  paymentMethod: "PayPal",
+  givingType: "General Support"
+};
 
 const MinistryGive = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    amount: "50",
-    paymentMethod: "PayPal",
-    givingType: "General Support",
-  });
+  const { values: formData, setValues: setFormData, handleChange, resetForm } =
+    useForm(initialGiveFormValues);
 
   const [step, setStep] = useState(1);
+  const [result, setResult] = useState({ message: "", type: "" });
+
+  useEffect(() => {
+    if (result.type !== "success") return;
+
+    const timeoutId = setTimeout(() => {
+      setResult({ message: "", type: "" });
+    }, 5000);
+
+    return () => clearTimeout(timeoutId);
+  }, [result.type]);
 
   const paymentMethods = ["PayPal", "Credit Card", "Bank Transfer"];
 
   const givingTypes = [
-    { id: "general", name: "General Support", icon: <FaHandHoldingHeart />, description: "Support our overall ministry operations and initiatives" },
-    { id: "building", name: "Building Fund", icon: <FaChurch />, description: "Help us expand our physical facilities for worship and community service" },
-    { id: "scholarship", name: "Scholarship Fund", icon: <FaGraduationCap />, description: "Provide educational opportunities for students in need" },
-    { id: "outreach", name: "Community Outreach", icon: <FaUsers />, description: "Support our local community service programs and initiatives" },
-    { id: "missions", name: "Global Missions", icon: <FaGlobeAfrica />, description: "Help spread the Gospel through our international mission work" },
+    {
+      id: "general",
+      name: "General Support",
+      icon: <FaHandHoldingHeart />,
+      description: "Support our overall ministry operations and initiatives"
+    },
+    {
+      id: "building",
+      name: "Building Fund",
+      icon: <FaChurch />,
+      description: "Help us expand our physical facilities for worship and community service"
+    },
+    {
+      id: "scholarship",
+      name: "Scholarship Fund",
+      icon: <FaGraduationCap />,
+      description: "Provide educational opportunities for students in need"
+    },
+    {
+      id: "outreach",
+      name: "Community Outreach",
+      icon: <FaUsers />,
+      description: "Support our local community service programs and initiatives"
+    },
+    {
+      id: "missions",
+      name: "Global Missions",
+      icon: <FaGlobeAfrica />,
+      description: "Help spread the Gospel through our international mission work"
+    }
   ];
 
   const suggestedAmounts = [20, 50, 100, 250, 500, 1000];
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
   const handleGivingTypeSelect = (type) => {
-    setFormData({ ...formData, givingType: type });
+    setFormData((prev) => ({ ...prev, givingType: type }));
     setStep(2);
   };
 
   const handleAmountSelect = (amount) => {
-    setFormData({ ...formData, amount: amount.toString() });
+    setFormData((prev) => ({ ...prev, amount: amount.toString() }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Thank you for your donation! Your payment is being processed.");
-    console.log(formData);
+
+    setResult({
+      message: "Thank you for your donation! Your payment is being processed.",
+      type: "success"
+    });
+
+    resetForm();
+    setStep(1);
   };
 
   const nextStep = () => {
-    setStep(step + 1);
+    setStep((prev) => prev + 1);
   };
 
   const prevStep = () => {
-    setStep(step - 1);
+    setStep((prev) => prev - 1);
   };
 
   return (
@@ -63,6 +111,20 @@ const MinistryGive = () => {
 
       <div className="give-content">
         <div className="giving-container">
+          {result.message ? (
+            <div
+              style={{
+                padding: "12px 16px",
+                marginBottom: 16,
+                borderRadius: 8,
+                background: result.type === "success" ? "#ecfdf5" : "#fef2f2",
+                color: result.type === "success" ? "#065f46" : "#991b1b"
+              }}
+            >
+              {result.message}
+            </div>
+          ) : null}
+
           <div className="giving-steps">
             <div className={`step ${step >= 1 ? 'active' : ''}`}>1. Choose Purpose</div>
             <div className={`step ${step >= 2 ? 'active' : ''}`}>2. Select Amount</div>
@@ -145,8 +207,8 @@ const MinistryGive = () => {
                 <div className="form-group">
                   <label>Payment Method:</label>
                   <select name="paymentMethod" value={formData.paymentMethod} onChange={handleChange} required>
-                    {paymentMethods.map((method, index) => (
-                      <option key={index} value={method}>{method}</option>
+                    {paymentMethods.map((method) => (
+                      <option key={method} value={method}>{method}</option>
                     ))}
                   </select>
                 </div>
